@@ -29,6 +29,13 @@ app.route('/')
     res.sendFile(process.cwd() + '/views/index.html');
   }); 
 
+app.use((req, res, next) => {
+  if (typeof res._headers === 'undefined') {
+    res._headers = res.getHeaders();
+  }
+  next();
+});
+
 //For FCC testing purposes
 fccTestingRoutes(app);
     

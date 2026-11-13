@@ -55,6 +55,19 @@ suite('Functional Tests', () => {
           done();
         });
     });
+
+    test("FCC app-info endpoint reports the security headers.", done => {
+      chai.request(server)
+        .get('/_api/app-info')
+        .end((err, res) => {
+          assert.strictEqual(res.status, 200);
+          assert.deepStrictEqual(res.body.headers['x-content-type-options'], 'nosniff');
+          assert.deepStrictEqual(res.body.headers['x-xss-protection'], '1; mode=block');
+          assert.deepStrictEqual(res.body.headers['cache-control'], 'no-store, no-cache, must-revalidate, proxy-revalidate');
+          assert.deepStrictEqual(res.body.headers['x-powered-by'], 'PHP 7.4.3');
+          done();
+        });
+    });
   });
 
 });
