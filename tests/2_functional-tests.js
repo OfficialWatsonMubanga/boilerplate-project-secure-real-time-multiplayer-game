@@ -18,12 +18,12 @@ suite('Functional Tests', () => {
 
   suite('Headers test', () => {
     test("Prevent the client from trying to guess / sniff the MIME type.", done => {
-      chai.request(server)
-        .get('/')
-        .end((err, res) => {
-          assert.deepStrictEqual(res.header['x-content-type-options'], 'nosniff');
-          done();
-        });
+        chai.request(server)
+            .get('/')
+            .end((err, res) => {
+                assert.deepStrictEqual(res.header['x-content-type-options'], 'nosniff');
+                done();
+            });
     });
 
     test("Prevent cross-site scripting (XSS) attacks.", done => {
